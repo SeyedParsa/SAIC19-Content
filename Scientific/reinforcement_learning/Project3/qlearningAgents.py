@@ -11,7 +11,7 @@
 # Student side autograding was added by Brad Miller, Nick Hay, and
 # Pieter Abbeel (pabbeel@cs.berkeley.edu).
 
-
+from qlearning_update import *
 from game import *
 from learningAgents import ReinforcementAgent
 from featureExtractors import *
@@ -183,11 +183,7 @@ class ApproximateQAgent(PacmanQAgent):
         """
            Should update your weights based on transition
         """
-        difference = reward + self.discount * self.getValue(nextState) - self.getQValue(state, action)
-
-        features = self.featExtractor.getFeatures(state, action)
-        for key in list(features.keys()):
-            self.weights[key] = self.weights[key] + self.alpha * difference * features[key]
+        qlearning_update(self, state, action, nextState, reward)
 
     def final(self, state):
         "Called at the end of each game."
